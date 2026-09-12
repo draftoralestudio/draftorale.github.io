@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://draftoralestudio.github.io/draftorale.github.io/sitemap.xml
