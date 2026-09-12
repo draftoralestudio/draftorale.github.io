@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       localStorage.setItem(
         "draftorale-theme",
-        document.body.classList.contains("light") ? "light" : "dark"
+        document.body.classList.contains("light")
+          ? "light"
+          : "dark"
       );
     });
   }
@@ -37,7 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", () => {
     if (header) {
-      header.classList.toggle("scrolled", window.scrollY > 30);
+      header.classList.toggle(
+        "scrolled",
+        window.scrollY > 30
+      );
     }
   });
 
@@ -46,21 +51,26 @@ document.addEventListener("DOMContentLoaded", () => {
      SCROLL PROGRESS
   ========================= */
 
-  const progressBar = document.querySelector(".scroll-progress");
+  const progressBar =
+    document.querySelector(".scroll-progress");
 
   window.addEventListener("scroll", () => {
+
     if (!progressBar) return;
 
     const scrollTop = window.scrollY;
+
     const documentHeight =
-      document.documentElement.scrollHeight - window.innerHeight;
+      document.documentElement.scrollHeight -
+      window.innerHeight;
 
     const percentage =
       documentHeight > 0
         ? (scrollTop / documentHeight) * 100
         : 0;
 
-    progressBar.style.width = `${percentage}%`;
+    progressBar.style.width =
+      `${percentage}%`;
   });
 
 
@@ -68,13 +78,25 @@ document.addEventListener("DOMContentLoaded", () => {
      CURSOR GLOW
   ========================= */
 
-  const cursorGlow = document.querySelector(".cursor-glow");
+  const cursorGlow =
+    document.querySelector(".cursor-glow");
 
-  if (cursorGlow && window.matchMedia("(pointer:fine)").matches) {
-    window.addEventListener("mousemove", (event) => {
-      cursorGlow.style.left = `${event.clientX}px`;
-      cursorGlow.style.top = `${event.clientY}px`;
-    });
+  if (
+    cursorGlow &&
+    window.matchMedia("(pointer:fine)").matches
+  ) {
+
+    window.addEventListener(
+      "mousemove",
+      (event) => {
+
+        cursorGlow.style.left =
+          `${event.clientX}px`;
+
+        cursorGlow.style.top =
+          `${event.clientY}px`;
+      }
+    );
   }
 
 
@@ -82,12 +104,18 @@ document.addEventListener("DOMContentLoaded", () => {
      SAMPLE TABS
   ========================= */
 
-  const sampleTabs = document.querySelectorAll(".sample-tab");
-  const samplePanels = document.querySelectorAll(".sample-panel");
+  const sampleTabs =
+    document.querySelectorAll(".sample-tab");
+
+  const samplePanels =
+    document.querySelectorAll(".sample-panel");
 
   sampleTabs.forEach((tab) => {
+
     tab.addEventListener("click", () => {
-      const target = tab.dataset.sample;
+
+      const target =
+        tab.dataset.sample;
 
       sampleTabs.forEach((item) => {
         item.classList.remove("active");
@@ -99,9 +127,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       tab.classList.add("active");
 
-      const panel = document.querySelector(
-        `.sample-panel[data-sample="${target}"]`
-      );
+      const panel =
+        document.querySelector(
+          `.sample-panel[data-sample="${target}"]`
+        );
 
       if (panel) {
         panel.classList.add("active");
@@ -114,41 +143,80 @@ document.addEventListener("DOMContentLoaded", () => {
      START THE STORY — CLIENT INTAKE WIZARD
      ========================================================= */
 
-  const wizard = document.getElementById("storyWizard");
-  const wizardBackdrop = document.querySelector(".wizard-backdrop");
-  const wizardClose = document.querySelector(".wizard-close");
+  const wizard =
+    document.getElementById("storyWizard");
 
-  const startButton = document.getElementById("startButton");
-  const headerStart = document.querySelector(".header-start");
+  const wizardBackdrop =
+    document.querySelector(".wizard-backdrop");
 
-  const wizardScreens = document.querySelectorAll(".wizard-screen");
-  const wizardStep = document.getElementById("wizardStep");
-  const wizardProgress = document.getElementById("wizardProgress");
-  const wizardBack = document.getElementById("wizardBack");
+  const wizardClose =
+    document.querySelector(".wizard-close");
 
-  const resultType = document.getElementById("resultType");
-  const resultLanguage = document.getElementById("resultLanguage");
-  const resultGenre = document.getElementById("resultGenre");
-  const resultHave = document.getElementById("resultHave");
-  const resultNeed = document.getElementById("resultNeed");
+  const startButton =
+    document.getElementById("startButton");
 
-  const resultSummary = document.getElementById("resultSummary");
-  const estimate = document.getElementById("estimate");
+  const headerStart =
+    document.querySelector(".header-start");
 
-  const emailButton = document.getElementById("emailButton");
-  const restartButton = document.getElementById("restartWizard");
+  const wizardScreens =
+    document.querySelectorAll(".wizard-screen");
 
-  const STUDIO_EMAIL = "YOUR_STUDIO_EMAIL_HERE";
+  const wizardStep =
+    document.getElementById("wizardStep");
+
+  const wizardProgress =
+    document.getElementById("wizardProgress");
+
+  const wizardBack =
+    document.getElementById("wizardBack");
+
+  const resultType =
+    document.getElementById("resultType");
+
+  const resultLanguage =
+    document.getElementById("resultLanguage");
+
+  const resultGenre =
+    document.getElementById("resultGenre");
+
+  const resultHave =
+    document.getElementById("resultHave");
+
+  const resultNeed =
+    document.getElementById("resultNeed");
+
+  const resultSummary =
+    document.getElementById("resultSummary");
+
+  const estimate =
+    document.getElementById("estimate");
+
+  const emailButton =
+    document.getElementById("emailButton");
+
+  const restartButton =
+    document.getElementById("restartWizard");
+
+
+  /* =========================================================
+     STUDIO EMAIL
+     ========================================================= */
+
+  const STUDIO_EMAIL =
+    "draftoralestudio@gmail.com";
+
 
   let currentStep = 1;
 
+
   /*
-    Multi-select:
-      Step 1 = Project type
-      Step 2 = Language (SINGLE)
-      Step 3 = Genre
-      Step 4 = What you have
-      Step 5 = What you need
+    MULTI-SELECT:
+
+    Step 1 = Project type
+    Step 2 = Language (SINGLE)
+    Step 3 = Genre
+    Step 4 = What you have
+    Step 5 = What you need
   */
 
   let answers = {
@@ -165,64 +233,102 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================= */
 
   function openWizard() {
+
     if (!wizard) return;
 
     wizard.classList.add("open");
-    document.body.classList.add("wizard-open");
+
+    document.body.classList.add(
+      "wizard-open"
+    );
 
     resetWizard();
 
     setTimeout(() => {
-      const firstChoice = wizard.querySelector(
-        '.wizard-screen[data-step="1"] .choice-grid button, .wizard-screen[data-step="1"] .choice-stack button'
-      );
+
+      const firstChoice =
+        wizard.querySelector(
+          '.wizard-screen[data-step="1"] .choice-grid button, .wizard-screen[data-step="1"] .choice-stack button'
+        );
 
       if (firstChoice) {
         firstChoice.focus();
       }
+
     }, 250);
   }
 
 
   function closeWizard() {
+
     if (!wizard) return;
 
     wizard.classList.remove("open");
-    document.body.classList.remove("wizard-open");
+
+    document.body.classList.remove(
+      "wizard-open"
+    );
   }
 
 
   if (startButton) {
-    startButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      openWizard();
-    });
+
+    startButton.addEventListener(
+      "click",
+      (event) => {
+
+        event.preventDefault();
+
+        openWizard();
+      }
+    );
   }
 
 
   if (headerStart) {
-    headerStart.addEventListener("click", (event) => {
-      event.preventDefault();
-      openWizard();
-    });
+
+    headerStart.addEventListener(
+      "click",
+      (event) => {
+
+        event.preventDefault();
+
+        openWizard();
+      }
+    );
   }
 
 
   if (wizardClose) {
-    wizardClose.addEventListener("click", closeWizard);
+    wizardClose.addEventListener(
+      "click",
+      closeWizard
+    );
   }
 
 
   if (wizardBackdrop) {
-    wizardBackdrop.addEventListener("click", closeWizard);
+
+    wizardBackdrop.addEventListener(
+      "click",
+      closeWizard
+    );
   }
 
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && wizard?.classList.contains("open")) {
-      closeWizard();
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (
+        event.key === "Escape" &&
+        wizard?.classList.contains("open")
+      ) {
+
+        closeWizard();
+      }
     }
-  });
+  );
 
 
   /* =========================
@@ -230,6 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================= */
 
   function resetWizard() {
+
     currentStep = 1;
 
     answers = {
@@ -240,19 +347,42 @@ document.addEventListener("DOMContentLoaded", () => {
       need: []
     };
 
-    document.querySelectorAll(".wizard-choice").forEach((button) => {
-      button.classList.remove("selected");
-      button.setAttribute("aria-pressed", "false");
-    });
 
-    document.querySelectorAll(".wizard-continue").forEach((button) => {
-      button.disabled = false;
-    });
+    document
+      .querySelectorAll(".wizard-choice")
+      .forEach((button) => {
+
+        button.classList.remove(
+          "selected"
+        );
+
+        button.setAttribute(
+          "aria-pressed",
+          "false"
+        );
+      });
+
+
+    document
+      .querySelectorAll(".wizard-continue")
+      .forEach((button) => {
+
+        button.disabled = false;
+        button.classList.remove("ready");
+      });
+
 
     if (emailButton) {
-      emailButton.classList.remove("email-opened");
-      emailButton.textContent = "EMAIL THE BRIEF ↗";
+
+      emailButton.classList.remove(
+        "email-opened",
+        "email-error"
+      );
+
+      emailButton.textContent =
+        "EMAIL THE BRIEF ↗";
     }
+
 
     showStep(1);
   }
@@ -263,10 +393,14 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================= */
 
   function showStep(step) {
+
     currentStep = step;
 
+
     wizardScreens.forEach((screen) => {
-      const screenStep = Number(screen.dataset.step);
+
+      const screenStep =
+        Number(screen.dataset.step);
 
       screen.classList.toggle(
         "active",
@@ -274,30 +408,41 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     });
 
+
     if (wizardStep) {
+
       wizardStep.textContent =
         step <= 5
           ? `${String(step).padStart(2, "0")} — 05`
           : "BRIEF";
     }
 
+
     if (wizardProgress) {
+
       const percentage =
         step <= 5
           ? (step / 5) * 100
           : 100;
 
-      wizardProgress.style.width = `${percentage}%`;
+      wizardProgress.style.width =
+        `${percentage}%`;
     }
 
+
     if (wizardBack) {
+
       wizardBack.style.visibility =
         step > 1 && step <= 5
           ? "visible"
           : "hidden";
     }
 
-    const panel = document.querySelector(".wizard-panel");
+
+    const panel =
+      document.querySelector(
+        ".wizard-panel"
+      );
 
     if (panel) {
       panel.scrollTop = 0;
@@ -306,11 +451,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   if (wizardBack) {
-    wizardBack.addEventListener("click", () => {
-      if (currentStep > 1) {
-        showStep(currentStep - 1);
+
+    wizardBack.addEventListener(
+      "click",
+      () => {
+
+        if (currentStep > 1) {
+
+          showStep(
+            currentStep - 1
+          );
+        }
       }
-    });
+    );
   }
 
 
@@ -318,87 +471,147 @@ document.addEventListener("DOMContentLoaded", () => {
      MULTI-SELECT CHOICE SYSTEM
      ========================================================= */
 
-  const choiceButtons = document.querySelectorAll(".wizard-choice");
+  const choiceButtons =
+    document.querySelectorAll(
+      ".wizard-choice"
+    );
+
 
   choiceButtons.forEach((button) => {
 
-    button.setAttribute("aria-pressed", "false");
+    button.setAttribute(
+      "aria-pressed",
+      "false"
+    );
 
-    button.addEventListener("click", () => {
 
-      const step = Number(
-        button.closest(".wizard-screen")?.dataset.step
-      );
+    button.addEventListener(
+      "click",
+      () => {
 
-      const value =
-        button.dataset.value ||
-        button.textContent.trim();
+        const step =
+          Number(
+            button
+              .closest(".wizard-screen")
+              ?.dataset.step
+          );
 
-      /*
-        LANGUAGE = SINGLE SELECT
-      */
 
-      if (step === 2) {
+        const value =
+          button.dataset.value ||
+          button.textContent.trim();
 
-        document
-          .querySelectorAll(
-            '.wizard-screen[data-step="2"] .wizard-choice'
-          )
-          .forEach((item) => {
-            item.classList.remove("selected");
-            item.setAttribute("aria-pressed", "false");
-          });
 
-        button.classList.add("selected");
-        button.setAttribute("aria-pressed", "true");
+        /* =========================
+           LANGUAGE = SINGLE SELECT
+        ========================= */
 
-        answers.language = value;
+        if (step === 2) {
 
-        updateContinueButton(step);
+          document
+            .querySelectorAll(
+              '.wizard-screen[data-step="2"] .wizard-choice'
+            )
+            .forEach((item) => {
 
-        return;
+              item.classList.remove(
+                "selected"
+              );
+
+              item.setAttribute(
+                "aria-pressed",
+                "false"
+              );
+            });
+
+
+          button.classList.add(
+            "selected"
+          );
+
+          button.setAttribute(
+            "aria-pressed",
+            "true"
+          );
+
+
+          answers.language = value;
+
+          updateContinueButton(
+            step
+          );
+
+          return;
+        }
+
+
+        /* =========================
+           EVERYTHING ELSE = MULTI
+        ========================= */
+
+        const keyMap = {
+
+          1: "type",
+
+          3: "genre",
+
+          4: "have",
+
+          5: "need"
+        };
+
+
+        const key =
+          keyMap[step];
+
+
+        if (!key) return;
+
+
+        const index =
+          answers[key].indexOf(
+            value
+          );
+
+
+        if (index === -1) {
+
+          answers[key].push(
+            value
+          );
+
+          button.classList.add(
+            "selected"
+          );
+
+          button.setAttribute(
+            "aria-pressed",
+            "true"
+          );
+
+        } else {
+
+          answers[key].splice(
+            index,
+            1
+          );
+
+          button.classList.remove(
+            "selected"
+          );
+
+          button.setAttribute(
+            "aria-pressed",
+            "false"
+          );
+        }
+
+
+        updateContinueButton(
+          step
+        );
       }
-
-
-      /*
-        EVERYTHING ELSE = MULTI SELECT
-      */
-
-      const keyMap = {
-        1: "type",
-        3: "genre",
-        4: "have",
-        5: "need"
-      };
-
-      const key = keyMap[step];
-
-      if (!key) return;
-
-      /*
-        "Other" / "Custom" don't force exclusivity.
-        Every option can coexist with another option.
-      */
-
-      const index = answers[key].indexOf(value);
-
-      if (index === -1) {
-
-        answers[key].push(value);
-
-        button.classList.add("selected");
-        button.setAttribute("aria-pressed", "true");
-
-      } else {
-
-        answers[key].splice(index, 1);
-
-        button.classList.remove("selected");
-        button.setAttribute("aria-pressed", "false");
-      }
-
-      updateContinueButton(step);
-    });
+    );
   });
 
 
@@ -407,37 +620,65 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================= */
 
   const continueButtons =
-    document.querySelectorAll(".wizard-continue");
+    document.querySelectorAll(
+      ".wizard-continue"
+    );
 
-  continueButtons.forEach((button) => {
 
-    button.addEventListener("click", () => {
+  continueButtons.forEach(
+    (button) => {
 
-      const step = Number(
-        button.closest(".wizard-screen")?.dataset.step
-      );
+      button.addEventListener(
+        "click",
+        () => {
 
-      if (!step) return;
+          const step =
+            Number(
+              button
+                .closest(".wizard-screen")
+                ?.dataset.step
+            );
 
-      if (!isStepComplete(step)) {
-        showValidationMessage(step);
-        return;
-      }
 
-      button.disabled = true;
+          if (!step) return;
 
-      setTimeout(() => {
-        button.disabled = false;
 
-        if (step < 5) {
-          showStep(step + 1);
-        } else {
-          showResult();
+          if (
+            !isStepComplete(step)
+          ) {
+
+            showValidationMessage(
+              step
+            );
+
+            return;
+          }
+
+
+          button.disabled = true;
+
+
+          setTimeout(() => {
+
+            button.disabled = false;
+
+
+            if (step < 5) {
+
+              showStep(
+                step + 1
+              );
+
+            } else {
+
+              showResult();
+            }
+
+          }, 180);
         }
-
-      }, 180);
-    });
-  });
+      );
+    }
+  );
 
 
   function isStepComplete(step) {
@@ -468,19 +709,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateContinueButton(step) {
 
-    const screen = document.querySelector(
-      `.wizard-screen[data-step="${step}"]`
-    );
+    const screen =
+      document.querySelector(
+        `.wizard-screen[data-step="${step}"]`
+      );
+
 
     if (!screen) return;
 
-    const button = screen.querySelector(".wizard-continue");
+
+    const button =
+      screen.querySelector(
+        ".wizard-continue"
+      );
+
 
     if (!button) return;
 
-    const complete = isStepComplete(step);
 
-    button.disabled = !complete;
+    const complete =
+      isStepComplete(step);
+
+
+    button.disabled =
+      !complete;
+
 
     button.classList.toggle(
       "ready",
@@ -491,52 +744,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showValidationMessage(step) {
 
-    const screen = document.querySelector(
-      `.wizard-screen[data-step="${step}"]`
-    );
+    const screen =
+      document.querySelector(
+        `.wizard-screen[data-step="${step}"]`
+      );
+
 
     if (!screen) return;
 
+
     const existing =
-      screen.querySelector(".wizard-validation");
+      screen.querySelector(
+        ".wizard-validation"
+      );
+
 
     if (existing) {
       existing.remove();
     }
 
-    const message = document.createElement("div");
 
-    message.className = "wizard-validation";
+    const message =
+      document.createElement(
+        "div"
+      );
+
+
+    message.className =
+      "wizard-validation";
+
+
     message.textContent =
       step === 2
         ? "Choose a language to continue."
         : "Choose at least one option to continue.";
 
+
     const button =
-      screen.querySelector(".wizard-continue");
+      screen.querySelector(
+        ".wizard-continue"
+      );
+
 
     if (button) {
       button.before(message);
     }
 
+
     setTimeout(() => {
-      message.classList.add("show");
+
+      message.classList.add(
+        "show"
+      );
+
     }, 10);
 
+
     setTimeout(() => {
-      message.classList.remove("show");
+
+      message.classList.remove(
+        "show"
+      );
+
 
       setTimeout(() => {
-        message.remove();
+
+        if (message.parentNode) {
+          message.remove();
+        }
+
       }, 250);
 
     }, 2200);
   }
 
 
-  /* =========================
+  /* =========================================================
      RESULT
-  ========================= */
+     ========================================================= */
 
   function showResult() {
 
@@ -545,99 +830,179 @@ document.addEventListener("DOMContentLoaded", () => {
         '.wizard-screen[data-step="result"]'
       );
 
+
     if (!resultScreen) {
-      /*
-        Fallback for the original HTML where result
-        may not have a data-step="result".
-      */
 
       const possibleResult =
-        document.querySelector(".wizard-result");
+        document.querySelector(
+          ".wizard-result"
+        );
+
 
       if (possibleResult) {
-        wizardScreens.forEach((screen) => {
-          screen.classList.remove("active");
-        });
 
-        possibleResult.classList.add("active");
+        wizardScreens.forEach(
+          (screen) => {
+            screen.classList.remove(
+              "active"
+            );
+          }
+        );
+
+
+        possibleResult.classList.add(
+          "active"
+        );
       }
 
     } else {
 
-      wizardScreens.forEach((screen) => {
-        screen.classList.remove("active");
-      });
+      wizardScreens.forEach(
+        (screen) => {
+          screen.classList.remove(
+            "active"
+          );
+        }
+      );
 
-      resultScreen.classList.add("active");
+
+      resultScreen.classList.add(
+        "active"
+      );
     }
 
 
     if (wizardStep) {
-      wizardStep.textContent = "BRIEF";
+      wizardStep.textContent =
+        "BRIEF";
     }
+
 
     if (wizardProgress) {
-      wizardProgress.style.width = "100%";
+      wizardProgress.style.width =
+        "100%";
     }
+
 
     if (wizardBack) {
-      wizardBack.style.visibility = "hidden";
+      wizardBack.style.visibility =
+        "hidden";
     }
 
 
-    /*
-      Populate result fields.
-    */
+    /* =========================
+       RESULT FIELDS
+    ========================= */
 
-    setResultText(resultType, answers.type);
-    setResultText(resultLanguage, answers.language);
-    setResultText(resultGenre, answers.genre);
-    setResultText(resultHave, answers.have);
-    setResultText(resultNeed, answers.need);
+    setResultText(
+      resultType,
+      answers.type
+    );
 
+    setResultText(
+      resultLanguage,
+      answers.language
+    );
+
+    setResultText(
+      resultGenre,
+      answers.genre
+    );
+
+    setResultText(
+      resultHave,
+      answers.have
+    );
+
+    setResultText(
+      resultNeed,
+      answers.need
+    );
+
+
+    /* =========================
+       SUMMARY
+    ========================= */
 
     if (resultSummary) {
 
       const typeText =
-        formatList(answers.type);
+        formatList(
+          answers.type
+        );
 
       const genreText =
-        formatList(answers.genre);
+        formatList(
+          answers.genre
+        );
 
       const needText =
-        formatList(answers.need);
+        formatList(
+          answers.need
+        );
+
 
       resultSummary.textContent =
         `You’re looking to develop ${typeText.toLowerCase()} in ${answers.language}, with a ${genreText.toLowerCase()} direction. You currently have ${formatList(answers.have).toLowerCase()} and need ${needText.toLowerCase()}.`;
     }
 
 
-    /*
-      Pricing
-    */
+    /* =========================
+       PRICING
+    ========================= */
 
-    let priceText = "Starting price: discussed based on the brief.";
+    let priceText =
+      "Starting price: discussed based on the brief.";
+
 
     const hasStoryWriting =
-      answers.type.some((item) =>
-        item.toLowerCase().includes("story writing")
+      answers.type.some(
+        (item) =>
+          item
+            .toLowerCase()
+            .includes(
+              "story writing"
+            )
       );
+
 
     const hasScript =
-      answers.type.some((item) =>
-        item.toLowerCase().includes("audio story")
+      answers.type.some(
+        (item) =>
+          item
+            .toLowerCase()
+            .includes(
+              "audio story"
+            )
       ) ||
-      answers.need.some((item) =>
-        item.toLowerCase().includes("story + script")
+      answers.need.some(
+        (item) =>
+          item
+            .toLowerCase()
+            .includes(
+              "story + script"
+            )
       );
+
 
     const needsFullWriting =
-      answers.need.some((item) =>
-        item.toLowerCase().includes("full writing")
+      answers.need.some(
+        (item) =>
+          item
+            .toLowerCase()
+            .includes(
+              "full writing"
+            )
       );
 
 
-    if (hasScript && (hasStoryWriting || needsFullWriting)) {
+    if (
+      hasScript &&
+      (
+        hasStoryWriting ||
+        needsFullWriting
+      )
+    ) {
 
       priceText =
         "Starting price: ₹0.200 / word";
@@ -653,34 +1018,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (estimate) {
-      estimate.textContent = priceText;
+      estimate.textContent =
+        priceText;
     }
 
 
-    /*
-      Result screen animation
-    */
+    /* =========================
+       RESULT ANIMATION
+    ========================= */
 
     const activeResult =
       document.querySelector(
         ".wizard-result.active, .wizard-screen[data-step='result'].active"
       );
 
+
     if (activeResult) {
-      activeResult.classList.add("result-reveal");
+
+      activeResult.classList.add(
+        "result-reveal"
+      );
+
 
       setTimeout(() => {
-        activeResult.classList.remove("result-reveal");
+
+        activeResult.classList.remove(
+          "result-reveal"
+        );
+
       }, 700);
     }
   }
 
 
-  function setResultText(element, value) {
+  function setResultText(
+    element,
+    value
+  ) {
 
     if (!element) return;
 
+
     if (Array.isArray(value)) {
+
       element.textContent =
         value.length
           ? value.join(" · ")
@@ -688,6 +1068,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       return;
     }
+
 
     element.textContent =
       value || "—";
@@ -700,61 +1081,96 @@ document.addEventListener("DOMContentLoaded", () => {
       return items || "";
     }
 
+
     if (items.length === 0) {
       return "nothing selected";
     }
+
 
     if (items.length === 1) {
       return items[0];
     }
 
+
     if (items.length === 2) {
-      return `${items[0]} + ${items[1]}`;
+
+      return (
+        `${items[0]} + ${items[1]}`
+      );
     }
 
+
     return (
-      items.slice(0, -1).join(", ") +
+      items
+        .slice(0, -1)
+        .join(", ") +
       " + " +
       items[items.length - 1]
     );
   }
 
 
-  /* =========================
-     EMAIL
-  ========================= */
+  /* =========================================================
+     EMAIL — DRAFTORALE STUDIO
+     ========================================================= */
 
   if (emailButton) {
 
-    emailButton.addEventListener("click", () => {
+    emailButton.addEventListener(
+      "click",
+      () => {
 
-      if (
-        !STUDIO_EMAIL ||
-        STUDIO_EMAIL === "YOUR_STUDIO_EMAIL_HERE"
-      ) {
+        /*
+          Safety check.
+          This should never trigger because the
+          real studio email is configured above.
+        */
 
-        emailButton.textContent =
-          "EMAIL NOT CONFIGURED YET";
+        if (
+          !STUDIO_EMAIL ||
+          STUDIO_EMAIL ===
+            "YOUR_STUDIO_EMAIL_HERE"
+        ) {
 
-        emailButton.classList.add("email-error");
-
-        setTimeout(() => {
           emailButton.textContent =
-            "EMAIL THE BRIEF ↗";
+            "EMAIL NOT CONFIGURED YET";
 
-          emailButton.classList.remove("email-error");
-
-        }, 2600);
-
-        return;
-      }
+          emailButton.classList.add(
+            "email-error"
+          );
 
 
-      const subject =
-        `New Story Brief — ${formatList(answers.type)}`;
+          setTimeout(() => {
+
+            emailButton.textContent =
+              "EMAIL THE BRIEF ↗";
+
+            emailButton.classList.remove(
+              "email-error"
+            );
+
+          }, 2600);
 
 
-      const body = `
+          return;
+        }
+
+
+        /* =========================
+           EMAIL SUBJECT
+        ========================= */
+
+        const subject =
+          `New Story Brief — ${formatList(
+            answers.type
+          )}`;
+
+
+        /* =========================
+           EMAIL BODY
+        ========================= */
+
+        const body = `
 DRAFTORALE STUDIO — NEW STORY BRIEF
 
 PROJECT TYPE
@@ -773,30 +1189,60 @@ WHAT I NEED
 ${formatList(answers.need)}
 
 STARTING PRICE
-${estimate ? estimate.textContent : "Discussed based on brief."}
+${estimate
+  ? estimate.textContent
+  : "Discussed based on brief."}
 
 ---
 
 I understand that this is an initial brief and that the project will be discussed personally before confirmation.
-      `.trim();
+        `.trim();
 
 
-      const mailto =
-        `mailto:${STUDIO_EMAIL}` +
-        `?subject=${encodeURIComponent(subject)}` +
-        `&body=${encodeURIComponent(body)}`;
+        /* =========================
+           MAILTO
+        ========================= */
+
+        const mailto =
+          `mailto:${STUDIO_EMAIL}` +
+          `?subject=${encodeURIComponent(
+            subject
+          )}` +
+          `&body=${encodeURIComponent(
+            body
+          )}`;
 
 
-      emailButton.classList.add("email-opened");
+        /* =========================
+           BUTTON STATE
+        ========================= */
 
-      window.location.href = mailto;
+        emailButton.classList.add(
+          "email-opened"
+        );
 
 
-      setTimeout(() => {
         emailButton.textContent =
-          "BRIEF READY ✓";
-      }, 300);
-    });
+          "OPENING EMAIL ↗";
+
+
+        /*
+          Open the visitor's configured
+          email application.
+        */
+
+        window.location.href =
+          mailto;
+
+
+        setTimeout(() => {
+
+          emailButton.textContent =
+            "BRIEF READY ✓";
+
+        }, 700);
+      }
+    );
   }
 
 
@@ -805,9 +1251,14 @@ I understand that this is an initial brief and that the project will be discusse
   ========================= */
 
   if (restartButton) {
-    restartButton.addEventListener("click", () => {
-      resetWizard();
-    });
+
+    restartButton.addEventListener(
+      "click",
+      () => {
+
+        resetWizard();
+      }
+    );
   }
 
 
@@ -815,8 +1266,15 @@ I understand that this is an initial brief and that the project will be discusse
      INITIAL BUTTON STATES
   ========================= */
 
-  for (let step = 1; step <= 5; step++) {
-    updateContinueButton(step);
+  for (
+    let step = 1;
+    step <= 5;
+    step++
+  ) {
+
+    updateContinueButton(
+      step
+    );
   }
 
 
@@ -824,15 +1282,31 @@ I understand that this is an initial brief and that the project will be discusse
      ESCAPE HTML
   ========================= */
 
-  window.escapeHTML = function (value) {
+  window.escapeHTML =
+    function (value) {
 
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  };
+      return String(value)
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+    };
 
 
   /* =========================
@@ -840,23 +1314,40 @@ I understand that this is an initial brief and that the project will be discusse
   ========================= */
 
   const revealElements =
-    document.querySelectorAll(".reveal");
+    document.querySelectorAll(
+      ".reveal"
+    );
 
-  if ("IntersectionObserver" in window) {
+
+  if (
+    "IntersectionObserver" in
+    window
+  ) {
 
     const observer =
       new IntersectionObserver(
-        (entries, obs) => {
+        (
+          entries,
+          obs
+        ) => {
 
-          entries.forEach((entry) => {
+          entries.forEach(
+            (entry) => {
 
-            if (entry.isIntersecting) {
+              if (
+                entry.isIntersecting
+              ) {
 
-              entry.target.classList.add("visible");
+                entry.target.classList.add(
+                  "visible"
+                );
 
-              obs.unobserve(entry.target);
+                obs.unobserve(
+                  entry.target
+                );
+              }
             }
-          });
+          );
 
         },
         {
@@ -864,15 +1355,26 @@ I understand that this is an initial brief and that the project will be discusse
         }
       );
 
-    revealElements.forEach((element) => {
-      observer.observe(element);
-    });
+
+    revealElements.forEach(
+      (element) => {
+
+        observer.observe(
+          element
+        );
+      }
+    );
 
   } else {
 
-    revealElements.forEach((element) => {
-      element.classList.add("visible");
-    });
+    revealElements.forEach(
+      (element) => {
+
+        element.classList.add(
+          "visible"
+        );
+      }
+    );
   }
 
 
@@ -881,52 +1383,73 @@ I understand that this is an initial brief and that the project will be discusse
   ========================= */
 
   const serviceCards =
-    document.querySelectorAll(".service-card");
+    document.querySelectorAll(
+      ".service-card"
+    );
 
-  serviceCards.forEach((card) => {
 
-    card.addEventListener("pointermove", (event) => {
+  serviceCards.forEach(
+    (card) => {
 
-      const rect =
-        card.getBoundingClientRect();
+      card.addEventListener(
+        "pointermove",
+        (event) => {
 
-      const x =
-        event.clientX - rect.left;
+          const rect =
+            card.getBoundingClientRect();
 
-      const y =
-        event.clientY - rect.top;
 
-      card.style.setProperty(
-        "--mouse-x",
-        `${x}px`
+          const x =
+            event.clientX -
+            rect.left;
+
+
+          const y =
+            event.clientY -
+            rect.top;
+
+
+          card.style.setProperty(
+            "--mouse-x",
+            `${x}px`
+          );
+
+
+          card.style.setProperty(
+            "--mouse-y",
+            `${y}px`
+          );
+        }
       );
-
-      card.style.setProperty(
-        "--mouse-y",
-        `${y}px`
-      );
-    });
-  });
+    }
+  );
 
 
   /* =========================
      BODY SCROLL SAFETY
   ========================= */
 
-  window.addEventListener("resize", () => {
+  window.addEventListener(
+    "resize",
+    () => {
 
-    if (
-      !wizard?.classList.contains("open")
-    ) {
-      document.body.classList.remove("wizard-open");
+      if (
+        !wizard?.classList.contains(
+          "open"
+        )
+      ) {
+
+        document.body.classList.remove(
+          "wizard-open"
+        );
+      }
     }
+  );
 
-  });
 
-
-  /*
-    Initial wizard state.
-  */
+  /* =========================
+     INITIAL WIZARD STATE
+  ========================= */
 
   if (wizard) {
     showStep(1);
