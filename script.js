@@ -1,6 +1,7 @@
 /* =========================================================
    DRAFTORALE STUDIO — SCRIPT
    Multi-select client intake wizard
+   Email: draftoralestudio@gmail.com
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,9 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
      THEME
   ========================= */
 
-  const themeToggle = document.getElementById("themeToggle");
+  const themeToggle =
+    document.getElementById("themeToggle");
 
-  const savedTheme = localStorage.getItem("draftorale-theme");
+  const savedTheme =
+    localStorage.getItem("draftorale-theme");
 
   if (savedTheme === "light") {
     document.body.classList.add("light");
@@ -19,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
+
       document.body.classList.toggle("light");
 
       localStorage.setItem(
@@ -35,15 +39,17 @@ document.addEventListener("DOMContentLoaded", () => {
      HEADER / SCROLL
   ========================= */
 
-  const header = document.querySelector(".site-header");
+  const header =
+    document.querySelector(".site-header");
 
   window.addEventListener("scroll", () => {
-    if (header) {
-      header.classList.toggle(
-        "scrolled",
-        window.scrollY > 30
-      );
-    }
+
+    if (!header) return;
+
+    header.classList.toggle(
+      "scrolled",
+      window.scrollY > 30
+    );
   });
 
 
@@ -58,7 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!progressBar) return;
 
-    const scrollTop = window.scrollY;
+    const scrollTop =
+      window.scrollY;
 
     const documentHeight =
       document.documentElement.scrollHeight -
@@ -199,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     STUDIO EMAIL
+     OFFICIAL STUDIO EMAIL
      ========================================================= */
 
   const STUDIO_EMAIL =
@@ -228,9 +235,9 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
 
-  /* =========================
-     OPEN / CLOSE
-  ========================= */
+  /* =========================================================
+     OPEN WIZARD
+     ========================================================= */
 
   function openWizard() {
 
@@ -248,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const firstChoice =
         wizard.querySelector(
-          '.wizard-screen[data-step="1"] .choice-grid button, .wizard-screen[data-step="1"] .choice-stack button'
+          '.wizard-screen[data-step="1"] .wizard-choice'
         );
 
       if (firstChoice) {
@@ -258,6 +265,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 250);
   }
 
+
+  /* =========================================================
+     CLOSE WIZARD
+     ========================================================= */
 
   function closeWizard() {
 
@@ -300,6 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   if (wizardClose) {
+
     wizardClose.addEventListener(
       "click",
       closeWizard
@@ -322,7 +334,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (
         event.key === "Escape" &&
-        wizard?.classList.contains("open")
+        wizard &&
+        wizard.classList.contains("open")
       ) {
 
         closeWizard();
@@ -331,9 +344,9 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
-  /* =========================
-     RESET
-  ========================= */
+  /* =========================================================
+     RESET WIZARD
+     ========================================================= */
 
   function resetWizard() {
 
@@ -368,7 +381,10 @@ document.addEventListener("DOMContentLoaded", () => {
       .forEach((button) => {
 
         button.disabled = false;
-        button.classList.remove("ready");
+
+        button.classList.remove(
+          "ready"
+        );
       });
 
 
@@ -388,9 +404,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* =========================
-     STEP NAVIGATION
-  ========================= */
+  /* =========================================================
+     SHOW STEP
+     ========================================================= */
 
   function showStep(step) {
 
@@ -450,6 +466,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  /* =========================================================
+     BACK BUTTON
+     ========================================================= */
+
   if (wizardBack) {
 
     wizardBack.addEventListener(
@@ -489,11 +509,14 @@ document.addEventListener("DOMContentLoaded", () => {
       "click",
       () => {
 
+        const screen =
+          button.closest(
+            ".wizard-screen"
+          );
+
         const step =
           Number(
-            button
-              .closest(".wizard-screen")
-              ?.dataset.step
+            screen?.dataset.step
           );
 
 
@@ -503,7 +526,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* =========================
-           LANGUAGE = SINGLE SELECT
+           LANGUAGE = SINGLE
         ========================= */
 
         if (step === 2) {
@@ -535,18 +558,21 @@ document.addEventListener("DOMContentLoaded", () => {
           );
 
 
-          answers.language = value;
+          answers.language =
+            value;
+
 
           updateContinueButton(
             step
           );
+
 
           return;
         }
 
 
         /* =========================
-           EVERYTHING ELSE = MULTI
+           OTHER STEPS = MULTI
         ========================= */
 
         const keyMap = {
@@ -580,9 +606,11 @@ document.addEventListener("DOMContentLoaded", () => {
             value
           );
 
+
           button.classList.add(
             "selected"
           );
+
 
           button.setAttribute(
             "aria-pressed",
@@ -596,9 +624,11 @@ document.addEventListener("DOMContentLoaded", () => {
             1
           );
 
+
           button.classList.remove(
             "selected"
           );
+
 
           button.setAttribute(
             "aria-pressed",
@@ -615,9 +645,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  /* =========================
+  /* =========================================================
      CONTINUE BUTTONS
-  ========================= */
+     ========================================================= */
 
   const continueButtons =
     document.querySelectorAll(
@@ -635,7 +665,9 @@ document.addEventListener("DOMContentLoaded", () => {
           const step =
             Number(
               button
-                .closest(".wizard-screen")
+                .closest(
+                  ".wizard-screen"
+                )
                 ?.dataset.step
             );
 
@@ -681,6 +713,10 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
+  /* =========================================================
+     STEP VALIDATION
+     ========================================================= */
+
   function isStepComplete(step) {
 
     if (step === 1) {
@@ -706,6 +742,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return false;
   }
 
+
+  /* =========================================================
+     CONTINUE BUTTON STATE
+     ========================================================= */
 
   function updateContinueButton(step) {
 
@@ -741,6 +781,10 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+
+  /* =========================================================
+     VALIDATION MESSAGE
+     ========================================================= */
 
   function showValidationMessage(step) {
 
@@ -820,7 +864,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     RESULT
+     RESULT SCREEN
      ========================================================= */
 
   function showResult() {
@@ -843,6 +887,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         wizardScreens.forEach(
           (screen) => {
+
             screen.classList.remove(
               "active"
             );
@@ -859,6 +904,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       wizardScreens.forEach(
         (screen) => {
+
           screen.classList.remove(
             "active"
           );
@@ -873,25 +919,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (wizardStep) {
+
       wizardStep.textContent =
         "BRIEF";
     }
 
 
     if (wizardProgress) {
+
       wizardProgress.style.width =
         "100%";
     }
 
 
     if (wizardBack) {
+
       wizardBack.style.visibility =
         "hidden";
     }
 
 
     /* =========================
-       RESULT FIELDS
+       RESULT DATA
     ========================= */
 
     setResultText(
@@ -1018,6 +1067,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (estimate) {
+
       estimate.textContent =
         priceText;
     }
@@ -1051,6 +1101,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  /* =========================================================
+     RESULT TEXT
+     ========================================================= */
+
   function setResultText(
     element,
     value
@@ -1075,19 +1129,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  /* =========================================================
+     FORMAT LIST
+     ========================================================= */
+
   function formatList(items) {
 
     if (!Array.isArray(items)) {
+
       return items || "";
     }
 
 
     if (items.length === 0) {
+
       return "nothing selected";
     }
 
 
     if (items.length === 1) {
+
       return items[0];
     }
 
@@ -1111,7 +1172,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     EMAIL — DRAFTORALE STUDIO
+     EMAIL THE BRIEF
      ========================================================= */
 
   if (emailButton) {
@@ -1120,44 +1181,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "click",
       () => {
 
-        /*
-          Safety check.
-          This should never trigger because the
-          real studio email is configured above.
-        */
-
-        if (
-          !STUDIO_EMAIL ||
-          STUDIO_EMAIL ===
-            "YOUR_STUDIO_EMAIL_HERE"
-        ) {
-
-          emailButton.textContent =
-            "EMAIL NOT CONFIGURED YET";
-
-          emailButton.classList.add(
-            "email-error"
-          );
-
-
-          setTimeout(() => {
-
-            emailButton.textContent =
-              "EMAIL THE BRIEF ↗";
-
-            emailButton.classList.remove(
-              "email-error"
-            );
-
-          }, 2600);
-
-
-          return;
-        }
-
-
         /* =========================
-           EMAIL SUBJECT
+           SUBJECT
         ========================= */
 
         const subject =
@@ -1167,7 +1192,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* =========================
-           EMAIL BODY
+           BODY
         ========================= */
 
         const body = `
@@ -1200,7 +1225,7 @@ I understand that this is an initial brief and that the project will be discusse
 
 
         /* =========================
-           MAILTO
+           MAILTO URL
         ========================= */
 
         const mailto =
@@ -1214,41 +1239,51 @@ I understand that this is an initial brief and that the project will be discusse
 
 
         /* =========================
-           BUTTON STATE
+           VISUAL STATE
         ========================= */
 
         emailButton.classList.add(
           "email-opened"
         );
 
+        emailButton.classList.remove(
+          "email-error"
+        );
 
         emailButton.textContent =
           "OPENING EMAIL ↗";
 
 
-        /*
-          Open the visitor's configured
-          email application.
-        */
+        /* =========================
+           OPEN EMAIL
+        ========================= */
 
         window.location.href =
           mailto;
 
+
+        /*
+          After returning to the website,
+          the button remains in the completed
+          state, but it can still be tapped
+          again because the click handler
+          remains active.
+        */
 
         setTimeout(() => {
 
           emailButton.textContent =
             "BRIEF READY ✓";
 
-        }, 700);
+        }, 800);
       }
     );
   }
 
 
-  /* =========================
+  /* =========================================================
      RESTART
-  ========================= */
+     ========================================================= */
 
   if (restartButton) {
 
@@ -1262,9 +1297,9 @@ I understand that this is an initial brief and that the project will be discusse
   }
 
 
-  /* =========================
+  /* =========================================================
      INITIAL BUTTON STATES
-  ========================= */
+     ========================================================= */
 
   for (
     let step = 1;
@@ -1278,9 +1313,9 @@ I understand that this is an initial brief and that the project will be discusse
   }
 
 
-  /* =========================
+  /* =========================================================
      ESCAPE HTML
-  ========================= */
+     ========================================================= */
 
   window.escapeHTML =
     function (value) {
@@ -1309,9 +1344,9 @@ I understand that this is an initial brief and that the project will be discusse
     };
 
 
-  /* =========================
+  /* =========================================================
      SCROLL REVEAL
-  ========================= */
+     ========================================================= */
 
   const revealElements =
     document.querySelectorAll(
@@ -1378,9 +1413,9 @@ I understand that this is an initial brief and that the project will be discusse
   }
 
 
-  /* =========================
+  /* =========================================================
      SERVICE HOVER LIGHT
-  ========================= */
+     ========================================================= */
 
   const serviceCards =
     document.querySelectorAll(
@@ -1425,9 +1460,9 @@ I understand that this is an initial brief and that the project will be discusse
   );
 
 
-  /* =========================
+  /* =========================================================
      BODY SCROLL SAFETY
-  ========================= */
+     ========================================================= */
 
   window.addEventListener(
     "resize",
@@ -1447,11 +1482,12 @@ I understand that this is an initial brief and that the project will be discusse
   );
 
 
-  /* =========================
+  /* =========================================================
      INITIAL WIZARD STATE
-  ========================= */
+     ========================================================= */
 
   if (wizard) {
+
     showStep(1);
   }
 
